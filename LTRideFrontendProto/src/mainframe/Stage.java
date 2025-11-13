@@ -26,6 +26,7 @@ public class Stage extends JFrame
 	{
 		super("LTRide");
 		setSize(WIDTH, HEIGHT);
+		setResizable(false);
 		
 		getContentPane().add(new MainPanel());
 		setVisible(true);
@@ -45,4 +46,15 @@ public class Stage extends JFrame
 	{
 		Stage.map = map;
 	}
+	
+	public static int getScreenWidth()
+	{
+		return WIDTH;
+	}
+	
+	public static int getScreenHeight()
+	{
+		return HEIGHT;
+	}
+	
 }
