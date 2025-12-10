@@ -22,13 +22,13 @@ public class MainPanel extends JPanel implements Runnable
 		setLayout(null);
 		
         // Adding necessary buttons for UI
-        BufferedImage iconImg = Stage.getSearchButton();
+        BufferedImage iconImgS = Stage.getSearchButton();
         JButton searchButton;
-        int btnW = 75, btnH = 75;
-        if (iconImg != null) 
+        int btnW = 63, btnH = 63;
+        if (iconImgS != null) 
         {
             // Scale to button size so the icon fits
-            Image scaled = iconImg.getScaledInstance(btnW, btnH, Image.SCALE_SMOOTH);
+            Image scaled = iconImgS.getScaledInstance(btnW, btnH, Image.SCALE_SMOOTH);
             searchButton = new JButton(new ImageIcon(scaled));
             searchButton.setBorderPainted(false);
             searchButton.setContentAreaFilled(false);
@@ -40,8 +40,27 @@ public class MainPanel extends JPanel implements Runnable
             searchButton = new JButton("Search"); // visible fallback so you can see the button
         }
 
-        searchButton.setBounds(0, 845, btnW, btnH);
+        searchButton.setBounds(10, 835, btnW, btnH);
         add(searchButton);  // Search Button
+        
+        BufferedImage iconImgM = Stage.getMenuButton();
+        JButton menuButton;
+        if (iconImgM != null)
+        {
+        	Image scaled = iconImgM.getScaledInstance(btnW, btnH, Image.SCALE_SMOOTH);
+        	menuButton = new JButton(new ImageIcon(scaled));
+            menuButton.setBorderPainted(false);
+            menuButton.setContentAreaFilled(false);
+            menuButton.setOpaque(false);
+        }
+        else 
+        {
+            System.err.println("Menu icon is null; creating fallback button.");
+            menuButton = new JButton("Menu"); // visible fallback so you can see the button
+        }
+        
+        menuButton.setBounds(10, 10, btnW, btnH);
+        add(menuButton); // Menu Button
 		
 		addMouseWheelListener(new MouseAdapter()
 			{

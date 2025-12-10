@@ -8,10 +8,12 @@ import javax.imageio.*;
 
 public class Stage extends JFrame
 {
+	private static final long serialVersionUID = 0L;
 	private static final int WIDTH = 540;
 	private static final int HEIGHT = 960;
 	private static BufferedImage map = null;
 	private static BufferedImage searchIcon = null;
+	private static BufferedImage menuIcon = null;
 	
 	public static void main(String[] args)
 	{
@@ -59,9 +61,33 @@ public class Stage extends JFrame
             } 
             catch (Exception e) { e.printStackTrace(); }
         }
+        
+        File menuFile = new File("H:/FrontEnd/LTRideFrontendProto/Assets/Wireframe Assets/Menu Icon.png");
+        if (!menuFile.exists()) 
+        {
+            System.err.println("Search icon file not found: " + menuFile.getAbsolutePath());
+        } 
+        else 
+        {
+            try 
+            {
+                BufferedImage tmp = ImageIO.read(menuFile);
+                if (tmp == null) 
+                {
+                    System.err.println("ImageIO.read returned null for search icon file: " + menuFile.getAbsolutePath());
+                } 
+                else 
+                {
+                    setMenuButton(tmp);
+                }
+            } 
+            catch (Exception e) { e.printStackTrace(); }
+        }
+
 
         // Create Swing UI on the Event Dispatch Thread
-        SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> 
+        {
             Stage run = new Stage();
         });
 	}
@@ -95,6 +121,16 @@ public class Stage extends JFrame
 	public static void setSearchButton(BufferedImage searchIcon)
 	{
 		Stage.searchIcon = searchIcon;
+	}
+	
+	public static BufferedImage getMenuButton()
+	{
+		return menuIcon;
+	}
+	
+	public static void setMenuButton(BufferedImage menuIcon)
+	{
+		Stage.menuIcon = menuIcon;
 	}
 	
 	public static int getScreenWidth()
