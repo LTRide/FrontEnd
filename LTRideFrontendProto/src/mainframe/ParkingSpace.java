@@ -15,6 +15,16 @@ public class ParkingSpace
 		rotation = r;
 	}
 	
-	public static void setVisibility (boolean v)
+	public void setVisibility (boolean v)
 	{ visible = v; }
+	
+	public boolean getVisibility()
+	{ return visible; }
+	
+	public boolean getVacancy()
+	{ return vacant; }
+	
+	public int getX() { return x_Coordinate; }
+	public int getY() { return y_Coordinate; }
+	public int getR() { return rotation; }
 }

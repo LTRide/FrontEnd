@@ -14,6 +14,9 @@ public class MainPanel extends JPanel implements Runnable
 	private int dragStartX = 0, dragStartY = 0;
     private final int panelWidth = Stage.getScreenWidth();
     private final int panelHeight = Stage.getScreenHeight();
+    
+    private final int PARKING_WIDTH = 10;
+    private final int PARKING_HEIGHT = 20;
 
 	
 	public MainPanel()
@@ -62,6 +65,7 @@ public class MainPanel extends JPanel implements Runnable
         menuButton.setBounds(10, 10, btnW, btnH);
         add(menuButton); // Menu Button
 		
+        // User action listeners
 		addMouseWheelListener(new MouseAdapter()
 			{
 				@Override
@@ -183,19 +187,53 @@ public class MainPanel extends JPanel implements Runnable
             }
         });
 	}
-	
+		
 	@Override
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
+		
+		// Declaring parking space objects
+		ParkingSpace spot1 = new ParkingSpace(2561, -386, 32);
+		spot1.setVisibility(true);
+		
 		if (Stage.getMap() != null)
 		{
 			Graphics2D g2d = (Graphics2D) g.create();
 			
+			// mapping
 			g2d.clearRect(0, 0, getWidth(), getHeight());
 			g2d.translate(offsetX, offsetY);
 			g2d.scale(zoom, zoom);
+			
+			// school map
 			g2d.drawImage(Stage.getMap(), 0, 0, this);
+			
+			if (spot1.getVisibility())
+			{
+				// parking spots
+		        Rectangle rect1 = new Rectangle(spot1.getX(), spot1.getY(), PARKING_WIDTH, PARKING_HEIGHT);
+		        g2d.setComposite(AlphaComposite.SrcOver.derive(0.7f));
+		        g2d.rotate(Math.toRadians(spot1.getR()));
+		        
+		        // coloring the parking spot appropriately
+		        if (spot1.getVacancy())
+		        {
+		        	g2d.setColor(Color.GREEN);
+		        }
+		        else if (!spot1.getVacancy())
+		        {
+		        	g2d.setColor(Color.RED);
+		        }
+		        else
+		        {
+		        	g2d.setColor(Color.WHITE);
+		        }
+		        
+		        g2d.draw(rect1);
+		        g2d.fill(rect1);
+			}
+			
 			g2d.dispose();
 		}
 	}
